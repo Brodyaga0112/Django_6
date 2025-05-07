@@ -1,0 +1,126 @@
+/* Светлая тема (по умолчанию) */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0,0,0,0.04);
+    --border-color: #dee2e6;
+    --link-color: #0d6efd;
+    --link-hover-color: #0a58ca;
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+    --bg-color: #212529;
+    --text-color: #f8f9fa;
+    --card-bg: #343a40;
+    --card-shadow: rgba(0,0,0,0.2);
+    --border-color: #495057;
+    --link-color: #6ea8fe;
+    --link-hover-color: #8bb9fe;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+footer {
+    font-size: 0.95rem;
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--card-shadow);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.card-title {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.btn {
+    border-radius: 8px !important;
+}
+
+/* Стили для переключателя темы */
+.theme-switch {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    color: var(--text-color);
+}
+
+.theme-switch:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Адаптация текста для тёмной темы */
+[data-theme="dark"] .text-muted {
+    color: #adb5bd !important;
+}
+
+[data-theme="dark"] .navbar-dark {
+    background-color: #1a1d20 !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: var(--link-hover-color) !important;
+}
+
+[data-theme="dark"] .alert {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .badge {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--link-color);
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+    border-color: var(--border-color);
+} 
+
+
