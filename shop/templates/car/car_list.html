@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Автомобили</h1>
+        {% if user.is_staff %}
+        <a href="{% url 'car_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Добавить автомобиль
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        {% for car in cars %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if car.image %}
+                <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.model }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ car.model.brand.name }} {{ car.model.name }}</h5>
+                    <p class="card-text">
+                        <strong>Год:</strong> {{ car.year }}<br>
+                        <strong>Цена:</strong> {{ car.price }} ₽<br>
+                        <strong>VIN:</strong> {{ car.vin }}
+                        {% if car.is_available %}
+                            <span class="badge bg-success">В наличии</span>
+                        {% else %}
+                            <span class="badge bg-danger">Нет в наличии</span>
+                        {% endif %}
+                    </p>
+                    
+                    <div class="mt-auto">
+                        <div class="btn-group-vertical w-100 mb-2">
+                            <a href="{% url 'car_detail' car.pk %}" class="btn btn-info">
+                                <i class="bi bi-info-circle"></i> Подробнее
+                            </a>
+                            {% if user.is_staff %}
+                            <a href="{% url 'car_update' car.pk %}" class="btn btn-warning">
+                                <i class="bi bi-pencil"></i> Изменить
+                            </a>
+                            <a href="{% url 'car_delete' car.pk %}" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Удалить
+                            </a>
+                            {% endif %}
+                        </div>
+
+                        {% if car.is_available %}
+                        <div class="d-flex gap-2">
+                            <form method="post" action="{% url 'add_to_wishlist' car.pk %}" class="flex-fill">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger w-100">
+                                    <i class="bi bi-heart"></i> В избранное
+                                </button>
+                            </form>
+                            <form method="post" action="{% url 'cart_add' car.pk %}" class="flex-fill">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-cart-plus"></i> В корзину
+                                </button>
+                            </form>
+                        </div>
+                        <div class="mt-2">
+                            <a href="{% url 'schedule_testdrive' car.pk %}" class="btn btn-outline-success w-100">
+                                <i class="bi bi-car-front"></i> Тест-драйв
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .btn-group-vertical {
+        gap: 0.5rem;
+    }
+    
+    .btn-group-vertical .btn {
+        text-align: left;
+        padding: 0.5rem 1rem;
+    }
+    
+    .badge {
+        display: inline-block;
+        margin-top: 0.5rem;
+    }
+    
+    /* Стили для темной темы */
+    @media (prefers-color-scheme: dark) {
+        .card {
+            background-color: #2b3035;
+            color: #fff;
+        }
+        
+        .card-title {
+            color: #fff;
+        }
+        
+        .card-text {
+            color: #adb5bd;
+        }
+    }
+</style>
+{% endblock %} 
